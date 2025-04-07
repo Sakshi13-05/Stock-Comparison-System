@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCKLIST</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+
+        .background
+        {
+            background-color:white;
+            background-size: cover;
+            align-content: center;
+            place-items: center;
+        }
+
+        .card {
+            height: 50px;
+            width: 80vh;
+            margin: 10px;
+            background-color: rgb(211, 238, 246);
+            border-radius: 20px;
+            box-shadow: 0.5rem 1rem rgba(0,0,0,-1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card p {
+            margin: 0;
+            padding: 10px;
+        }
+        .card button {
+            border-radius: 15px;
+            padding: 5px 10px;
+            border: 0px;
+            background-color: rgb(50, 86, 184);
+            color: aliceblue;
+        }
+        .card:hover{
+            outline: .1rem solid #0965c1;
+            outline-offset: 0;
+            cursor: pointer;
+            background-color:rgba(186, 234, 250, 0.978) ;
+        }
+        .head{
+            color: aliceblue;
+            background-color:  rgb(50, 86, 184);
+            padding: 10px;
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+            text-align: center;
+            width: 100vw;
+        }
+
+        .search{
+            margin: 10px;
+            border: 2px double black;
+            border-radius: 20px;
+            width: 30vw;
+            padding: 10px;
+            color: black;
+            position: relative;
+            background-color:white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .button{
+            border-radius: 15px;
+            padding: 15px;
+            border: 0px;
+            background-color:  rgb(50, 86, 184);
+            color: aliceblue;
+            align-items: center;
+            align-content: center;
+        }
+.icon {
+            margin-left: 10px;
+            float: right;
+            /* align-content: end; */
+        }
+
+.selected {
+    border: 2px solid #333;
+}
+
+        .card-hghlght {
+  pointer-events: auto;
+  transform: scale(1);
+  transition: all 0.4s;
+}
+
+.card-hghlght:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.content:hover .card-hghlght:not(:hover) {
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="background">
+        <h2 class="head">STOCKS LIST</h2>
+        <div class="search d-flex flex-column">
+           <p>Search</p>
+           <span class="icon">
+               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+           </span>
+        </div>
+        <div class="d-flex flex-row justify-content-center">
+        <div class="card card-hghlght" id="card1" >
+            <p>Tesla Inc.</p>
+            <button id="btn1">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>Microsoft Corp.</p>
+            <button id="btn2">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>Alphabet INC.(Google)</p>
+            <button id="btn3">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>Amazon.com Inc.</p>
+            <button id="btn4">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>Meta Platforms Inc (Facebook)</p>
+            <button id="btn5">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>NVIDIA Corporation</p>
+            <button id="btn6">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>JPMORgan Chase & CO.</p>
+            <button id="btn7">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>Johnson & Johnson</p>
+            <button id="btn8">Select</button>
+        </div>
+        <div class="card card-hghlght demo-card">
+            <p>Apple Inc.</p>
+            <button id="btn9">Select</button>
+        </div>
+    </div>
+        <button id="compare">Compare</button>
+        <script type="text/javascript" src="./comparision.js"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brokers</title>
+    <script src="https://kit.fontawesome.com/3e13e2f9bf.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu" crossorigin="anonymous"></script>  
+      
+      <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 200%);
+            color: white;
+            padding: 10px 20px;
+        }
+        .logo{
+            display: flex;
+            gap: 20px;
+        }
+        .logo h1{
+            padding-top: 6px;
+        }
+        .logo img {
+            height: 50px;
+            border-radius: 50%;
+        }
+        .icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .wishlist, .avatar {
+            cursor: pointer;
+        }
+        #avatar {
+            height: 35px;
+            border-radius: 50%;
+        }
+        .icons i{
+            font-size: 25px;
+        }
+        .handshake-popover {
+    display: none;
+    position: absolute;
+    top: 50px; /* Adjust position */
+    right: 60px;
+    background: #f8f9fa;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    z-index: 1000;
+}
+/*profile Sidebar */
+.sidebar1 {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 300px;
+            height: 100vh;
+            color: #000000;
+            background: white;
+            box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+            transition: right 0.3s;
+            padding: 20px;
+        }
+        .sidebar1.active {
+            right: 0;
+        }
+        .sidebar1 .close-btn {
+            text-align: right;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .sidebar1 img {
+            width: 100px;
+            display: block;
+            margin: 10px auto;
+            border-radius: 50%;
+        }
+        .profilename{
+          text-align: center;
+        }
+        #editname{
+          cursor: pointer;
+        }
+        .sidebar1 .menu {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar1 .menu li {
+            padding: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .sidebar1 .menu li:hover {
+            background: #add3ff;
+        }
+        .submenu {
+    display: none;
+    list-style: none;
+    padding-left: 30px;
+    font-size: 0.95em;
+}
+
+.submenu li {
+    padding: 8px 10px;
+    cursor: pointer;
+    color: #333;
+}
+
+.submenu li:hover {
+    background-color: #f7f7f7;
+}
+
+        .input-container {
+            display: flex;
+     align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+        }
+
+        /* Wishlist Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+            transition: right 0.3s;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .sidebar.active {
+            right: 0;
+        }
+        .sidebar .close-btn {
+            text-align: right;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        .wishlist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            margin: 0px;
+        }
+        #wishlistItems{
+            margin: 0px;
+            padding: 3px 0;
+        }
+        .wishlist-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 7px;
+        }
+        .remove-btn {
+            background: red;
+            color: white;
+            border-radius: 20px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-left: auto;
+        }
+
+        /* brokers List */
+        .stocklist {
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .list {
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .list:hover {
+            background: linear-gradient(270deg, #ffffff, #d9e8fd, #ffffff);
+            background-size: 200% 200%;
+            animation: gradientAnimation 3s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .list img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 30px ;
+        }
+        .list-content {
+            flex-grow: 1;
+        }
+        .list i {
+            cursor: pointer;
+            margin: 45px;
+            font-size: 1.5em;
+            color: gray;
+        }
+        .list i.active {
+            color: darkblue;
+        }
+        .list p{
+            font-size: 13px;
+            padding-right: 30px
+        }
+        .list h2{
+            color: darkblue;
+        }
+        .list span{
+            font-weight: bold;
+            color: darkblue;
+        }
+        
+        
+        @media (max-width: 768px) {
+            .list{
+                height: 140px ;
+            }
+            .list h2{
+                font-size: 20px;
+                padding: 0;
+                margin: 3px;
+            }
+            .list p{
+                font-size: 13px;
+                padding: 3px;
+                padding: 0;
+                margin: 3px;
+            }
+            .list img{
+                margin: 8px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="#"><img src="./logo2[1].jpg" alt="logo"></a>
+            <h1>Brokers</h1>
+     </div>
+        <div class="icons">
+            <i class="fa-regular fa-handshake" title="My Brokers" onmouseover="showPopover()" onmouseout="hidePopover()" onclick="toggleWishlist()"></i>
+            <div id="handshakePopover" class="handshake-popover">My Brokers</div>        
+            <div class="icons">
+                <img src="avatar.png" alt="Profile Picture" id="avatar" onclick="toggleProfile()">
+            </div>
+            <!-- Profile -->
+     <div id="profileSidebar" class="sidebar1">
+        <div class="close-btn" onclick="toggleProfile()">&times;</div>
+        <img src="avatar.png" alt="Profile Picture">
+        <h3 class="profilename">Sakshi <i class="fa-solid fa-edit" id="editname"></i></h3>
+
+        <ul class="menu">
+
+            <li onclick="toggleDropdown('productsDropdown')">
+                <i class="fa-solid fa-box"></i> Navigate To
+                <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
+            </li>
+            <ul class="submenu" id="productsDropdown">
+                <li onclick="location.href='community.html'"><i class="fa-solid fa-user-group"></i>Community</li>
+                <li style="cursor: not-allowed; background-color: #4a90e2; color: white;" ><i class="fa-solid fa-handshake"></i>Brokers</li>
+                <li onclick="location.href='news.html'"><i class="fa-solid fa-newspaper"></i>News</li>
+        </ul>
+        
+            <li><i class="fa-solid fa-cog"></i> Settings</li>
+        
+            <li class="dark-mode-toggle"><i class="fa-solid fa-moon"></i> Dark Mode</li>
+        
+            <li onclick="toggleDropdown('aboutDropdown')">
+                <i class="fa-solid fa-info-circle"></i> About Us
+                <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
+            </li>
+            <ul class="submenu" id="aboutDropdown">
+                <p>Our aim is to simplify stock market analysis through innovative digital solutions. With Instocks, we strive to bridge the gap between beginners and the complex world of stock trading.</p>
+            </ul>
+        
+            <li onclick="toggleDropdown('helpDropdown')">
+                <i class="fa-solid fa-question-circle"></i> Help
+                <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
+            </li>
+            <ul class="submenu" id="helpDropdown">
+                <li>Contact Support</li>
+                <li>FAQs</li>
+            </ul>
+        </ul>
+        
+    </div>
+        </div>
+    </nav>
+
+    <!-- Wishlist Sidebar -->
+    <div id="wishlistSidebar" class="sidebar">
+        <div class="close-btn" onclick="toggleWishlist()">&times;</div>
+        <h2>My Brokers</h2>
+        <ul id="wishlistItems"></ul>
+    </div>
+
+    <!-- Stock List -->
+    <div class="stocklist">
+        <div class="list" data-broker="Broker 1">
+            <img src="avatar.png" alt="Broker 3">
+        <div class="list-content">
+            <h2>Broker 1</h2>
+            <p class="brokerinfo">Expert in international market investments.</p>
+            <div style="display: flex;">
+            <p><span>Email:</span> broker1@example.com</p>
+            <p><span>Phone:</span>(890) 123-4567</p>
+        </div>
+            </div>
+            <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+        </div>
+        <div class="list" data-broker="Broker 2">
+            <img src="avatar.png" alt="Broker 3">
+        <div class="list-content">
+            <h2>Broker 2</h2>
+            <p class="brokerinfo">Specializes in portfolio management and risk analysis.</p>
+          <div style="display: flex;">
+            <p><span>Email:</span> broker2@example.com</p>
+            <p><span>Phone:</span>(890) 123-4567</p>
+          </div>
+            </div>
+            <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+        </div>
+        <div class="list" data-broker="Broker 3">
+            <img src="avatar.png" alt="Broker 3">
+        <div class="list-content">
+            <h2>Broker 3</h2>
+            <p class="brokerinfo">Expert in international market investments.</p>
+
+            <div style="display: flex;">
+            <p><span>Email:</span> broker3@example.com</p>
+            <p><span>Phone:</span>(890) 123-4567</p>
+        </div>
+            </div>
+            <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+        </div>
+        <div class="list" data-broker="Broker 4">
+            <img src="avatar.png" alt="Broker 4">
+        <div class="list-content">
+            <h2>Broker 4</h2>
+            <p class="brokerinfo">Known for providing tailored investment strategies to meet diverse client needs.</p>
+            <div style="display: flex;">
+            <p><span>Email:</span> broke4@example.com</p>
+            <p><span>Phone:</span>(890) 123-4567</p>
+        </div>
+            </div>
+            <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+        </div>
+            <div class="list" data-broker="Broker 5">
+                <img src="avatar.png" alt="Broker 5">
+            <div class="list-content">
+                <h2>Broker 5</h2>
+                <p class="brokerinfo">Expertise spans across various asset classes, including equities, 
+                    bonds, and mutual funds.</p>
+                <div style="display: flex;">
+                <p><span>Email:</span> broker5@example.com</p>
+                <p><span>Phone:</span>(890) 123-4567</p>
+            </div>
+                </div>
+                <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+            </div>
+            <div class="list" data-broker="Broker 6">
+                <img src="avatar.png" alt="Broker 6">
+            <div class="list-content">
+                <h2>Broker 6</h2>
+                <p class="brokerinfo">Expert in international market investments.</p>
+                <div style="display: flex;">
+                <p><span>Email:</span> broker6@example.com</p>
+                <p><span>Phone:</span>(890) 123-4567</p>
+            </div>
+                </div>
+                <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+            </div>
+            <div class="list" data-broker="Broker 7">
+                <img src="avatar.png" alt="Broker 7">
+            <div class="list-content">
+                <h2>Broker 7</h2>
+                <p class="brokerinfo">Known for providing comprehensive financial advice and personalized investment solutions.</p>
+                <p></p>
+                <div style="display: flex;">
+                <p><span>Email:</span> broker7@example.com</p>
+                <p><span>Phone:</span>(890) 123-4567</p>
+            </div>
+                </div>
+                <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+            </div>
+            <div class="list" data-broker="Broker 8">
+                <img src="avatar.png" alt="Broker 8">
+            <div class="list-content">
+                <h2>Broker 8</h2>
+                <p class="brokerinfo">Expert in international market investments.</p>
+                <div style="display: flex;">
+                <p><span>Email:</span> broker8@example.com</p>
+                <p><span>Phone:</span>(890) 123-4567</p>
+            </div>
+                </div>
+                <i class="fa-solid fa-plus" onclick="toggleWishlistItem(this)"></i>
+            </div>
+    </div>
+    <script>
+        //  // popover
+        //  document.getElementById("avatar").addEventListener("click", function(event) {
+        //     var popover = document.getElementById("popover");
+        //     popover.style.display = popover.style.display === "block" ? "none" : "block";
+        // });
+
+        // document.addEventListener("click", function(event) {
+        //     var popover = document.getElementById("popover");
+        //     var avatar = document.getElementById("avatar");
+        //     if (!avatar.contains(event.target) && !popover.contains(event.target)) {
+        //         popover.style.display = "none";
+        //     }
+        // });
+        
+        
+
+        //for hover popover
+        function showPopover() {
+    document.getElementById('handshakePopover').style.display = "block";
+}
+
+function hidePopover() {
+    document.getElementById('handshakePopover').style.display = "none";
+}
+
+    </script>
+    <script>
+    let wishlist = [];
+
+    function toggleWishlist() {
+        document.getElementById('wishlistSidebar').classList.toggle('active');
+        updateWishlist();
+    }
+
+    function toggleWishlistItem(icon) {
+        let brokerElement = icon.parentElement;
+        let brokerName = brokerElement.dataset.broker;
+        let imageSrc = brokerElement.querySelector("img").src;
+        let phoneNumber = brokerElement.querySelectorAll("p")[1].textContent;
+
+        let existing = wishlist.find(item => item.name === brokerName);
+        if (existing) {
+            wishlist = wishlist.filter(item => item.name !== brokerName);
+            icon.classList.remove('active');
+        } else {
+            wishlist.push({ name: brokerName, img: imageSrc, phone: phoneNumber });
+            icon.classList.add('active');
+        }
+        updateWishlist();
+    }
+
+    function updateWishlist() {
+    let wishlistContainer = document.getElementById('wishlistItems');
+    wishlistContainer.innerHTML = "";
+
+    wishlist.forEach(item => {
+        let li = document.createElement('li');
+        li.className = "wishlist-item";
+        li.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <div>
+                <span>${item.name}</span><br>
+                <span>${item.phone}</span>
+            </div>
+            <i class="fa-solid fa-times remove-btn" onclick="removeFromWishlist('${item.name}')"></i>
+        `;
+        wishlistContainer.appendChild(li);
+    });
+
+    // Save the wishlist to localStorage
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}
+
+
+    function removeFromWishlist(brokerName) {
+        wishlist = wishlist.filter(item => item.name !== brokerName);
+        updateWishlist();
+
+        document.querySelectorAll(".list").forEach(listItem => {
+            if (listItem.dataset.broker === brokerName) {
+                listItem.querySelector("i").classList.remove("active");
+            }
+        });
+    }
+
+    function loadWishlist() {
+    let storedWishlist = localStorage.getItem("wishlist");
+    if (storedWishlist) {
+        wishlist = JSON.parse(storedWishlist);
+        updateWishlist();
+
+        // Restore active icons for brokers in wishlist
+        wishlist.forEach(item => {
+            document.querySelectorAll(".list").forEach(listItem => {
+                if (listItem.dataset.broker === item.name) {
+                    listItem.querySelector("i").classList.add("active");
+                }
+            });
+        });
+    }
+}
+
+// Load wishlist on page load
+window.onload = loadWishlist;
+
+
+
+    </script>
+    <script>
+        // profile sidebar
+function toggleProfile() {
+    document.getElementById('profileSidebar').classList.toggle('active');
+}
+
+function addEditListener() {
+    // edit name
+    const editIcon = document.getElementById("editname");
+    if (editIcon) {
+        editIcon.addEventListener("click", function () {
+            const profileNameElement = document.querySelector('.profilename');
+            let currentName = profileNameElement.childNodes[0].nodeValue.trim();
+
+            profileNameElement.innerHTML = '<input type="text" id="nameInput" value="${currentName}"> <i class="fa-solid fa-check" id="checkname"></i>';
+            
+            document.getElementById("checkname").addEventListener("click", function () {
+                const newName = document.getElementById("nameInput").value.trim();
+                localStorage.setItem("profileName", newName);
+                profileNameElement.innerHTML = '${newName} <i class="fa-solid fa-edit" id="editname"></i>';
+                                addEditListener();
+            });
+        });
+    }
+}
+
+function toggleDropdown(id) {
+    const allDropdowns = document.querySelectorAll('.submenu');
+
+    allDropdowns.forEach(drop => {
+        if (drop.id !== id) {
+            drop.style.display = "none";  // Close others
+        }
+    });
+
+    const current = document.getElementById(id);
+    if (current.style.display === "block") {
+        current.style.display = "none";
+    } else {
+        current.style.display = "block";
+    }
+}
+
+
+
+window.addEventListener("DOMContentLoaded", function () {
+    const storedName = localStorage.getItem("profileName");
+    const profileNameElement = document.querySelector('.profilename');
+    if (storedName) {
+        profileNameElement.innerHTML = '${storedName} <i class="fa-solid fa-edit" id="editname"></i>';
+    }
+    // Attach the edit listener
+    addEditListener();
+});
+    </script>
+
+</body>
+</html>

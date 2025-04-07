@@ -1,0 +1,9 @@
+<input type="text" id="inputData" placeholder="Enter something">
+<button onclick="sendData()">Send to Page 2</button>
+
+<script>
+    function sendData() {
+        let data = document.getElementById("inputData").value;
+        window.location.href = "receiver.html?data=" + encodeURIComponent(data);
+    }
+</script>

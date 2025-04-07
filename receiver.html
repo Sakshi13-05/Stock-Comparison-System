@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 2</title>
+</head>
+<body>
+    <h2>Received Data:</h2>
+    <p id="receivedName"></p>
+
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let receivedData = urlParams.get("tickerarr");
+        document.body.innerHTML = "<h2>Received Data:</h2><p>" + (receivedData || "No data received!") + "</p>";
+
+    </script>
+</body>
+</html>

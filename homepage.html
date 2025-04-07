@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Home Page</title>
+   <link rel="stylesheet" href="./logo2[1].jpg">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      padding: 0px;
+      
+    }
+    .logo{
+      display: flex;
+      gap: 20px;
+      height: 50px;
+  }
+  .logo h1{
+      margin: 0;
+      padding-top: 12px;
+  }
+  .logo img {
+      height: 50px;
+      border-radius: 50%;
+  }
+    .parallel{
+    display: grid;
+    grid-template-columns: auto 250px;
+    gap: 20px;
+
+    }
+
+    /* Navbar styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 200%);
+      color: white;
+      padding: 12px 30px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+  }
+  .logo{
+      display: flex;
+      gap: 20px;
+      height: 50px;
+  }
+  .logo h1{
+      margin: 0;
+      padding-top: 12px;
+  }
+  .logo img {
+      height: 50px;
+      border-radius: 50%;
+  }
+  /* profile */
+.icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+  }
+  .wishlist, .avatar {
+      cursor: pointer;
+  }
+  #avatar {
+      height: 40px;
+      border-radius: 50%;
+  }
+
+  /*profile Sidebar */
+  .psidebar {
+      position: fixed;
+      top: 0;
+      right: -350px;
+      width: 300px;
+      height: 100vh;
+      color: #000000;
+      background: white;
+      box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+      transition: right 0.3s;
+      padding: 20px;
+      z-index: 999;
+  }
+  .psidebar.active {
+      right: 0;
+  }
+  .psidebar .close-btn {
+      text-align: right;
+      font-size: 1.5em;
+      cursor: pointer;
+  }
+  .psidebar img {
+      width: 100px;
+      display: block;
+      margin: 10px auto;
+      border-radius: 50%;
+  }
+  .profilename{
+    text-align: center;
+    padding: 10px;
+  }
+  #editname{
+    cursor: pointer;
+  }
+  .psidebar .menu {
+      list-style: none;
+      padding: 0;
+  }
+  .psidebar .menu li {
+      padding: 10px;
+      font-size: 1.2em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+  .psidebar .menu li:hover {
+      background: #add3ff;
+  }
+  .submenu {
+display: none;
+list-style: none;
+padding-left: 30px;
+font-size: 0.95em;
+}
+
+.submenu li {
+padding: 8px 10px;
+cursor: pointer;
+color: #333;
+}
+
+.submenu li:hover {
+background-color: #f7f7f7;
+}
+.logout{
+  color: white;
+    background-color: rgb(253, 140, 99);
+}
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top:10px;
+      left: 0;
+      background-color: #f8f9fa;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 90px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      top: 50px;
+      /* Height of the navbar */
+    }
+
+    .sidebar a {
+      padding: 15px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #495057;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #F5F5F5;
+    }
+
+    .sidebar a:hover {
+      background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 200%);
+    color: white;
+}
+
+
+    .sidebar .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    .openbtn {
+      font-size: 20px;
+      cursor: pointer;
+      background-color: #f8f9fa;
+      color: #495057;
+      padding: 10px 15px;
+      border: none;
+      position: fixed;
+      top: 60px;
+      /* Adjusted to be below the navbar */
+      left: 10px;
+      z-index: 2;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .openbtn:hover {
+      background-color: #e9ecef;
+    }
+
+    #main {
+      transition: margin-left .5s;
+      padding: 16px;
+      margin-top: 50px;
+      justify-content: center;
+      /* Height of the navbar */
+    }
+
+    .sidebar .icon {
+      
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    /* Style for sticky sidebar */
+    .sidebar.sticky {
+      width: 60px;
+      /* Adjust as needed */
+    }
+
+    .sidebar.sticky a {
+      padding: 15px 10px;
+      text-align: center;
+    }
+
+    .sidebar.sticky .icon {
+      margin-right: 0;
+    }
+
+    .sidebar.sticky span {
+      display: none;
+    }
+
+    /* ..........stocks........... */
+    .scroll-wrapper {
+      height: 60vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .stock-container {
+      display: flex;
+      flex-direction: column;
+      animation: scroll 20s linear infinite;
+    }
+
+    .stock-container:hover {
+      animation-play-state: paused;
+    }
+
+    .stock-card {
+      background: white;
+      margin-right: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 210px;
+      margin: 10px auto;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .stock-card:hover {
+      transform: scale(1.02);
+    }
+
+    .stock-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stock-header h2 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .stock-price {
+      font-size: 22px;
+      font-weight: bold;
+      color: green;
+    }
+
+    .trend {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); } /* Will loop back halfway */
+    }
+
+    /* ..........cards......... */
+    .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 50px;
+            justify-content: center;
+            
+
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+           
+        }
+        .card:hover {
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+      .sidebar {
+       padding-top: 15px;
+      }
+
+      .sidebar a {
+       font-size: 16px;
+      }
+    }
+
+    .t1{
+      font-size: 50px;
+      margin-top: 60px;
+      color: rgb(14, 1, 1);
+      max-width: 1000px;
+      text-align: left;
+      height: 65vh;
+      padding: 20px;
+      background-image: url(./homeback1.jpg);
+      background-size: cover;
+    }
+
+   .text{
+    
+    text-align: left;
+   }
+    
+      .text-card{
+        border-radius: 8px;
+        color: white;
+        text-align: center;
+        font-size: 20px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        transition: width 0.3s ease; /* Add transition for smooth resizing */
+        min-width: 200px; /* Minimum width to prevent it from becoming too small */
+      }
+
+     /* mobile view*/
+
+      @media (max-width: 768px) {
+        .navbar {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .navbar h1 {
+          margin-top: 10px;
+        }
+        .navbar-search {
+          width: 100%;
+        }
+        .navbar {
+          padding: 10px;
+        }
+        .navbar h1 {
+          font-size: 20px;
+        }
+        .navbar-search input {
+          width: 100%;
+          padding: 8px;
+        }
+        .sidebar a {
+          font-size: 14px;
+        }
+        .t1 {
+          font-size: 30px;
+          margin-top: 20px;
+        }
+        .text-card {
+          font-size: 16px;
+        }
+        .t1 {
+          font-size: 24px;
+          margin-top: 10px;
+        }
+        .text-card {
+          font-size: 14px;
+        }
+        .sidebar.sticky {
+          width: 20px;
+        }
+        .sidebar {
+          width: 150px;
+        }
+        .sidebar.sticky {
+          width: 50px;
+        }
+      
+        .openbtn {
+          font-size: 18px;
+          padding: 8px 12px;
+        }
+        .main{
+          display: flex;
+          flex-direction: column;
+        }
+      }
+      
+
+   </style>
+   <script defer src="script.js"></script>
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ </head>
+
+ <body>
+
+   <!-- Navbar -->
+   <nav class="navbar">
+    <div class="logo">
+        <a href="#"><img src="./logo2[1].jpg" alt="logo"></a>
+        <h1>Welcome Sakshi</h1>
+ </div>
+            
+    <div class="icons">
+        <img src="avatar.png" alt="Profile Picture" id="avatar" onclick="toggleProfile()">
+    </div>
+    <!-- Profile -->
+ <div id="profileSidebar" class="psidebar">
+    <div class="close-btn" onclick="toggleProfile()">&times;</div>
+    <img src="avatar.png" alt="Profile Picture">
+    <h3 class="profilename">Sakshi  <i class="fa-solid fa-edit" id="editname"></i></h3>
+
+    <ul class="menu">
+
+        <!-- <li onclick="toggleDropdown('productsDropdown')">
+            <i class="fa-solid fa-box"></i> Navigate To
+            <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
+        </li>
+        <ul class="submenu" id="productsDropdown">
+                <li onclick="location.href='community.html'"><i class="fa-solid fa-user-group"></i>Community</li>
+                <li onclick="location.href='brokers.html'"><i class="fa-solid fa-handshake"></i>Brokers</li>
+                <li style="cursor: not-allowed; background-color: #4a90e2; color: white;"><i class="fa-solid fa-newspaper"></i>News</li>
+        </ul> -->
+    
+        <li><i class="fa-solid fa-cog"></i> Settings</li>
+    
+        <li class="dark-mode-toggle"><i class="fa-solid fa-moon"></i> Dark Mode</li>
+    
+        <li onclick="toggleDropdown('aboutDropdown')">
+            <i class="fa-solid fa-info-circle"></i> About Us
+            <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
+        </li>
+        <ul class="submenu" id="aboutDropdown">
+            <p>Our aim is to simplify stock market analysis through innovative digital solutions. With Instocks, we strive to bridge the gap between beginners and the complex world of stock trading.</p>
+        </ul>
+    
+        <li onclick="toggleDropdown('helpDropdown')">
+            <i class="fa-solid fa-question-circle"></i> Help
+            <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
+        </li>
+        <ul class="submenu" id="helpDropdown">
+            <li><i class="fa-solid fa-square-phone"></i> Contact Support</li>
+            <li><i class="fa-solid fa-question-circle"></i> FAQs</li>
+        </ul>
+        <li  class="logout" onclick="location.href='landingpage.html'">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </li>
+    </ul>
+    
+</div>
+
+    <!-- <span class="more-option" id="avatar">&#x22EE;</span>
+    <div class="popover" id="popover">
+        <a href="index.html"><button>Logout<i class="fa-duotone fa-solid fa-right-from-bracket"></i></button></a>
+       <a><button>Help<i class="fa-regular fa-circle-question"></i></button></a>
+    </div> -->
+</nav>
+
+   <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="homepage.html"><i class="material-icons icon">home</i><span> Home</span></a>
+    <a href="news.html"><i class="material-icons icon">rss_feed</i><span> News</span></a>
+    <a href="#"><i class="material-icons icon">call</i><span> Contact Us</span></a>
+    <a href="brokers.html"><i class="material-icons icon">show_chart</i><span> Brokers</span></a>
+    <a href="community.html"><i class="material-icons icon">people</i><span> Our Community</span></a>
+   </div>
+
+    <!-- Main content -->
+      <div id="main">
+       <button class="openbtn" onclick="openNav()">&#9776;</button>
+       <div class="parallel">
+       <div style="display: flex; justify-content: center;" >
+        <div class="t1">
+       <h2 class="text">Make Better Investment with InStocks</h2>
+      </div>
+       </div>
+       <!-- ........stocks........... -->
+       <div>
+        <h1 style="text-align:center;">Live Stock Ticker</h1>
+        <div class="scroll-wrapper">
+          <div class="stock-container" id="stockContainer">
+            <!-- Cards will be injected here -->
+          </div>
+        </div>
+      
+        
+       </div>
+      </div>
+      </div>
+
+       <!-- <cards> -->
+
+       <!-- stocksssssss       -->
+        <script>
+
+          // profile sidebar
+function toggleProfile() {
+  document.getElementById('profileSidebar').classList.toggle('active');
+}
+
+function addEditListener() {
+  // edit name
+  const editIcon = document.getElementById("editname");
+  if (editIcon) {
+      editIcon.addEventListener("click", function () {
+          const profileNameElement = document.querySelector('.profilename');
+          let currentName = profileNameElement.childNodes[0].nodeValue.trim();
+
+          profileNameElement.innerHTML = `<input type="text" id="nameInput" value="${currentName}"> <i class="fa-solid fa-check" id="checkname"></i>`;
+          
+          document.getElementById("checkname").addEventListener("click", function () {
+              const newName = document.getElementById("nameInput").value.trim();
+              localStorage.setItem("profileName", newName);
+              profileNameElement.innerHTML =` ${newName} <i class="fa-solid fa-edit" id="editname"></i>`;
+                              addEditListener();
+          });
+      });
+  }
+}
+
+function toggleDropdown(id) {
+  const allDropdowns = document.querySelectorAll('.submenu');
+
+  allDropdowns.forEach(drop => {
+      if (drop.id !== id) {
+          drop.style.display = "none";  // Close others
+      }
+  });
+
+  const current = document.getElementById(id);
+  if (current.style.display === "block") {
+      current.style.display = "none";
+  } else {
+      current.style.display = "block";
+  }
+}
+
+
+
+// Load the profile name from localStorage on page load
+window.addEventListener("DOMContentLoaded", function () {
+  const storedName = localStorage.getItem("profileName");
+  const profileNameElement = document.querySelector('.profilename');
+  if (storedName) {
+      profileNameElement.innerHTML = `${storedName} <i class="fa-solid fa-edit" id="editname"></i>`;
+  }
+  // Attach the edit listener
+  addEditListener();
+});
+
+           const API_KEY = "cvik65pr01qks9qb06q0cvik65pr01qks9qb06qg";
+          const symbols = ["AAPL", "TSLA", "GOOGL", "MSFT", "AMZN", "META"];
+          const container = document.getElementById("stockContainer");
+      
+          function createCard(symbol) {
+            const card = document.createElement("div");
+            card.className = "stock-card";
+            card.innerHTML = `
+              <div class="stock-header">
+                <h2>${symbol}</h2>
+                <span class="stock-price" id="price-${symbol}">$0.00</span>
+              </div>
+              <p>Previous Close: <span id="prevClose-${symbol}">$0.00</span></p>
+              <p class="trend" id="trend-${symbol}">Loading...</p>
+            `;
+            return card;
+          }
+      
+          function loadCards() {
+            symbols.forEach(symbol => {
+              const card = createCard(symbol);
+              container.appendChild(card);
+            });
+      
+            // Duplicate cards for smooth scroll loop
+            symbols.forEach(symbol => {
+              const card = createCard(symbol);
+              container.appendChild(card.cloneNode(true));
+            });
+          }
+      
+          async function fetchStockData(symbol) {
+            const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${API_KEY}`);
+            const data = await res.json();
+            if (!data || !data.c || !data.pc) return;
+      
+            document.getElementById(`price-${symbol}`).innerText = `$${data.c.toFixed(2)}`;
+            document.getElementById(`prevClose-${symbol}`).innerText = `$${data.pc.toFixed(2)}`;
+      
+            const trend = document.getElementById(`trend-${symbol}`);
+            const change = ((data.c - data.pc) / data.pc) * 100;
+      
+            if (data.c > data.pc) {
+              trend.innerText = `🔼 Up ${change.toFixed(2)}%`;
+              trend.style.color = "green";
+            } else if (data.c < data.pc) {
+              trend.innerText =` 🔽 Down ${change.toFixed(2)}%`;
+              trend.style.color = "red";
+            } else {
+              trend.innerText = "➖ No Change";
+              trend.style.color = "gray";
+            }
+          }
+      
+          function loadLiveData() {
+            symbols.forEach(symbol => fetchStockData(symbol));
+            setInterval(() => {
+              symbols.forEach(symbol => fetchStockData(symbol));
+            }, 10000);
+          }
+      
+          loadCards();
+          loadLiveData();
+        </script> 
+
+
+
+
+
+
+   <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+      document.getElementById("mySidebar").classList.remove("sticky");
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "60px";
+      document.getElementById("main").style.marginLeft = "60px";
+      document.getElementById("mySidebar").classList.add("sticky");
+    }
+   </script>
+
+   <!-- Cards Section -->
+  <div class="container" id="stock-cards"></div>
+  <script>
+    const cards = [
+      { title: "Most Traded on IN-STOCKS:", icon: "📈" ,link: "stocklist.html"},
+      { title: "Top Intraday:", icon: "📊",link: "stocklist.html" },
+      { title: "Popular ETFs for SIP:", icon: "💰",link: "stocklist.html" },
+      { title: "All Stocks:", icon: "📉",link: "stocklist.html" },
+      { title: "Stocks in news", icon: "📰",link: "stocklist.html" },
+      { title: "Gainers", icon: "📈" ,link: "stocklist.html"}
+    ];
+
+    const cardContainer = document.getElementById("stock-cards");
+
+    cards.forEach(card => {
+      const cardElement = document.createElement("div");
+      cardElement.className = "card";
+      cardElement.innerHTML =`<div class="icon" >${card.icon}</div><h3>${card.title}</h3>`;
+      cardContainer.appendChild(cardElement);
+    });
+  </script>
+
+
+ </body>
+
+ </html>

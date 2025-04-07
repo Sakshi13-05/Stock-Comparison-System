@@ -1,0 +1,49 @@
+[
+    {
+        "company": "Tesla Inc",
+        "ticker": "TSLA",
+        "button": 0
+    },
+    {
+        "company": "Microsoft Corp.",
+        "ticker": "MSFT",
+        "button": 1
+    },
+    {
+        "company": "Alphabet INC (Google)",
+        "ticker": "GOOGL",
+        "button": 2
+    },
+    {
+        "company": "Amazon.com Inc.",
+        "ticker": "AMZN",
+        "button": 3
+    },
+    {
+        "company": "Meta Platforms Inc (Facebook)",
+        "ticker": "Meta",
+        "button": 4
+    },
+    {
+        "company": "NVIDIA Corporation",
+        "ticker": "NVDA",
+        "button": 5
+    },
+    {
+        "company": "JPMORgan Chase & CO.",
+        "ticker": "JPM",
+        "button": 6
+    },
+    {
+        "company": "Johnson & Johnson",
+        "ticker": "JNJ",
+        "button": 7
+    },
+    {
+        "company": "Apple Inc.",
+        "ticker": "APPL",
+        "button": 8
+    }
+]
+
+

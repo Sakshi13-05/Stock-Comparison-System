@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IN-STOCKS</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("./logo4.PNG");
+            background-size: cover;
+            background-position: center;
+        }
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(35, 110, 172);
+            padding: 10px 20px;
+            color: white;
+        }
+        .symbol {
+            height: 50px;
+        }
+        .button {
+            background-color: rgb(62, 130, 185);
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        .button:hover {
+            background-color: rgb(35, 110, 172);
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+        }
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            color: rgb(64, 107, 150);
+            background-color: white;
+        }
+        .faq-section {
+            width: 80%;
+            max-width: 800px;
+            margin-top: 40px;
+        }
+        .faq-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+        }
+        .faq-question {
+            font-weight: bold;
+            cursor: pointer;
+            color: rgb(21, 67, 113);;
+        }
+        .faq-answer {
+            display: none;
+            padding-top: 5px;
+            color: rgb(21, 67, 113);;
+        }
+        info{
+    background-color: rgb(150, 233, 235);
+    margin-top: 50px;
+    text-align: center;
+    color: rgb(21, 67, 113);
+
+}
+
+.footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding:  20px 0;
+            /* position: fixed; */
+            /* bottom: 0; */
+            width: 100%;
+            height: 200px;
+            margin: 0px;
+        }
+        .footer a {
+            color: #fffefb;
+            /* text-decoration: none; */
+            margin: 0 10px;
+        }
+
+        .reviews-container {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            position: relative;
+            background: #f4f4f4;
+            padding: 20px 0;
+            color: rgb(21, 67, 113);
+        }
+        .reviews {
+            display: inline-flex;
+            animation: scrollLeft 10s linear infinite;
+        }
+        .review-card {
+            background: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 440px;
+            height: 100px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .review-card h3 {
+            margin: 0 0 10px;
+        }
+        @keyframes scrollLeft {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <img class="symbol" src="./logo2[1].jpg" alt="logo">
+        <h1>Welcome to IN-Stocks</h1>
+        <button class="button" id="registerBtn">Register/Log-in</button>
+    </div>
+
+    <div class="container">
+        <div class="cards">
+            <div class="card">Your trusted source for stock market insights, analysis, and tools. Our mission is to empower investors like you with the knowledge and resources needed to make informed decisions and achieve your financial goals.
+                We thrive on giving you  latest updates of each stocks available and give the clarity current market position.</div>
+            <div class="card">Get Started Today!<br>
+                Sign up for a free account to access our exclusive content, 
+                tools, and community. Take control of your investments and start building your wealth with confidence.
+</div>
+            <div class="card">Explore Our Features:<br>
+                - Real-time market data and news<br>
+                - In-depth analysis and research reports<br>
+                - Personalized portfolio tracking and alerts<br>
+                - Advanced charting and technical analysis tools</div>
+                <div class="card" id="card2">Why Choose IN-STOCKS?<br>
+                    - Unbiased and independent analysis<br>
+                    - Comprehensive coverage of global markets<br>
+                    - User-friendly interface and intuitive design<br>
+                    - Commitment to data security and privacy<br>
+                    </div> 
+        </div>
+
+        <div class="faq-section">
+            <h2>FAQ</h2>
+            <div class="faq-item">
+                <div class="faq-question">1. What is this website about?</div>
+                <div class="faq-answer">This website provides real-time stock market data...</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">2. Do you provide real-time stock prices?</div>
+                <div class="faq-answer">Yes, we offer real-time or delayed stock prices...</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">2. Do you provide real-time stock prices?</div>
+                <div class="faq-answer">Yes, we offer real-time or delayed stock prices...</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">2. Do you provide real-time stock prices?</div>
+                <div class="faq-answer">Yes, we offer real-time or delayed stock prices...</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">2. Do you provide real-time stock prices?</div>
+                <div class="faq-answer">Yes, we offer real-time or delayed stock prices...</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">2. Do you provide real-time stock prices?</div>
+                <div class="faq-answer">Yes, we offer real-time or delayed stock prices...</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">2. Do you provide real-time stock prices?</div>
+                <div class="faq-answer">Yes, we offer real-time or delayed stock prices...</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">2. Do you provide real-time stock prices?</div>
+                <div class="faq-answer">Yes, we offer real-time or delayed stock prices...</div>
+            </div>
+        </div>
+
+        <div class="reviews-container">
+            <h2>Reviews</h2>
+            <div class="reviews">
+                <div class="review-card">
+                    <h3>John Doe</h3>
+                    <p>"Great service and very professional! Highly recommend."</p>
+                </div>
+                <div class="review-card">
+                    <h3>Jane Smith</h3>
+                    <p>"Excellent experience, very responsive and helpful."</p>
+                </div>
+                <div class="review-card">
+                    <h3>Michael Brown</h3>
+                    <p>"Fantastic support and quick resolution of issues."</p>
+                </div>
+                <div class="review-card">
+                    <h3>Emily White</h3>
+                    <p>"Amazing team, very helpful and supportive!"</p>
+                </div>
+                <div class="review-card">
+                    <h3>Chris Green</h3>
+                    <p>"Best experience ever, highly recommended!"</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <footer class="footer">
+                    <p>Contact us: <a href="mailto:contact@example.com">contact@example.com</a> | Phone: <span id="phone"></span></p>
+                    <p><a href="#">About Us</a> | <a href="https://www.instagram.com" target="_blank">Instagram</a> | <a href="https://www.facebook.com" target="_blank">Facebook</a></p>
+                </footer>
+            </div>
+    </div>
+
+    <script>
+        document.getElementById("registerBtn").addEventListener("click", function() {
+            window.location.href = "reg-log.html";
+        });
+
+        document.getElementById("phone").textContent = "+1 (123) 456-7890";
+        
+        document.querySelectorAll(".faq-question").forEach(question => {
+            question.addEventListener("click", () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === "block" ? "none" : "block";
+            });
+        });
+    </script>
+</body>
+</html>

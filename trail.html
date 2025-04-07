@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .comparison-container {
+    text-align: center;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.param {
+    font-weight: bold;
+    text-align: left;
+    padding-left: 20px;
+}
+
+</style>   
+</head>
+<body>
+    <div class="comparison-container">
+        <h1>Company Comparison</h1>
+        <table class="comparison-table">
+            <!-- Table Header: Company Names -->
+            <tr>
+                <th></th>
+                <th>Tesla Inc</th>
+                <th>Microsoft Corp.</th>
+            </tr>
+    
+            <!-- Table Rows: Parameters & Corresponding Values -->
+            <tr>
+                <td class="param">Market Capitalization:</td>
+                <td id="market1">N</td>
+                <td id="market2">N</td>
+            </tr>
+            <tr>
+                <td class="param">EBITDA:</td>
+                <td id="ed1">N</td>
+                <td id="ed2">N</td>
+            </tr>
+            <tr>
+                <td class="param">PE Ratio:</td>
+                <td id="pe1">N</td>
+                <td id="pe2">N</td>
+            </tr>
+            <tr>
+                <td class="param">Dividend Yield:</td>
+                <td id="dpy1">N</td>
+                <td id="dpy2">N</td>
+            </tr>
+            <tr>
+                <td class="param">Dividend Per Share:</td>
+                <td id="dps1">N</td>
+                <td id="dps2">N</td>
+            </tr>
+            <tr>
+                <td class="param">Equity Per Share:</td>
+                <td id="eps1">N</td>
+                <td id="eps2">N</td>
+            </tr>
+        </table>
+    </div>
+    
+    
+</body>
+</html>
+
+var { MarketCapitalization, EBITDA, PERatio, DividendPerShare, DividendYield, EPS } = companyData[1];
+
+        document.getElementById("market1").textContent = MarketCapitalization || "N";
+        document.getElementById("ed1").textContent = EBITDA || "N";
+        document.getElementById("pe1").textContent = PERatio || "N";
+        document.getElementById("dps1").textContent = DividendPerShare || "N";
+        document.getElementById("dpy1").textContent = DividendYield || "N";
+        document.getElementById("eps1").textContent = EPS || "N";
+
+        var{ MarketCapitalization, EBITDA, PERatio, DividendPerShare, DividendYield, EPS } = companyData[2];
+
+        document.getElementById("market2").textContent = MarketCapitalization || "N";
+        document.getElementById("ed2").textContent = EBITDA || "N";
+        document.getElementById("pe2").textContent = PERatio || "N";
+        document.getElementById("dps2").textContent = DividendPerShare || "N";
+        document.getElementById("dpy2").textContent = DividendYield || "N";
+        document.getElementById("eps2").textContent = EPS || "N";

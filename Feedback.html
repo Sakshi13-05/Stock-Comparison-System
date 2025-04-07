@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/3e13e2f9bf.js" crossorigin="anonymous"></script>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css">
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+     margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 185vh;
+        }
+        .navbar {
+      display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 200%);
+            color: white;
+            padding: 10px 20px;
+        }
+        .navbar img {
+      height: 50px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin-left: 65vw;
+            cursor: pointer;
+  }
+  .more-option {
+            font-size: 20px;
+            cursor: pointer;
+            font-weight: bolder;
+             padding-right: 20px;
+        }
+        .btn-toggle {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-toggle:hover {
+            text-decoration: underline;
+        }
+        .btn-toggle:focus {
+            outline: none;
+        }
+  .popover {
+    display: none;
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            background: #f8f9fa;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+        .popover button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .popover button:hover {
+            background: #007BFF;
+            color: white;
+        }
+        .popover i{
+            padding: 5px;
+        }
+        .popover a{
+            text-decoration: none;
+        }
+        .main-content {
+            height: 100%;
+         display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        
+        .input-container {
+            display: flex;
+     align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+        }
+ .chat-container {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+         background: white;
+            overflow-y: auto;
+            width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 10px;
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            display: flex;
+            align-items: flex-start;
+            background: #e1f5fe;
+            padding: 10px 10px 2px;
+            border-radius: 10px;
+            border-bottom-right-radius: 0px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+        .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .message-content {
+             display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .sender {
+            font-weight: bold;
+              color: #007BFF;
+        }
+        .text{
+            margin-top: 5px;
+            position: relative;
+        }
+        .time {
+            font-size: 0.8em;
+            color: gray;
+            text-align: right;
+            position: relative;
+            left: 230px;
+            top: -8px;
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .input-container input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-container img {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        .input-container img:hover {
+            scale: 1.1;
+            transition: scale 0.3s ease-in-out;
+            transform: translateY(5);
+        }
+        .modal {
+        display: none;
+        position: fixed;
+          z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.8);
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+        .sidebar {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            overflow-y: auto;
+            border-left: 2px solid #ddd;
+        }
+        .review {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+     word-wrap: break-word; /* Ensures long words break */
+    overflow-wrap: break-word;
+    white-space: normal; /* Allows text to wrap */
+    max-width: 100%; 
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.review p {
+    margin: 5px 0;
+    max-height: 100px; /* Limits height */
+    overflow-y: auto; /* Adds scrollbar for long messages */
+}
+
+        
+        .stars {
+            color: gold;
+        }
+        /* Footer  */
+        .footer {
+            background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(0,212,255,1) 200%);
+            height: 80vh;
+            padding: 40px;
+            padding-bottom: 0px;
+            color: #ffffff;
+        }
+        .row{
+            justify-content: space-between;
+        }
+
+        .sub-title{
+     color: #ffffff;
+     font-size: 55px;
+     font-weight: 600;
+}
+
+.contact-left p{
+    margin-top: 30px;
+    
+}
+.contact-left p i{
+    color: #94a7ff;
+    margin-right: 15px;
+    font-size: 25px;
+}
+.contact-left{
+    margin-left: 15vh;
+    margin-right: 10vh;
+    flex-basis: 40%;
+    width: 40%;
+}
+.contact-right{
+    flex-basis: 60%;
+    width: 60%;
+}
+.social-icons{
+    margin-top: 30px;
+}
+.social-icons a{
+    text-decoration: none;
+    font-size: 30px;
+    margin-right: 15px;
+color: #030f44;
+    transition: transform 0.5s;
+
+}
+.social-icons i:hover {
+    color: #96a9ff;
+    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
+.btn.btn2{
+    display: inline-block;
+    background: #334fcd ;
+}
+form input, form textarea{
+    width: 80%;
+    border: 0;
+    outline: 0;
+    background: #a8b1d1;
+    padding: 15px;
+    margin: 15px 0;
+    color: #011662;
+    font-size: 18px;
+    border-radius: 6px;
+}
+form .btn2{
+    background-color: #011662;
+    color: #ffffff;
+    padding: 14px 60px;
+    font-size: 18px;
+margin-top: 20px;
+cursor: pointer;
+border: 0;
+outline: 0;
+border-radius: 10px;
+}
+/* body {
+  --text-color: #222;
+  --bkg-color: #fff;
+}
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #121212;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* defaults to dark theme */
+  /* body {
+    --text-color: #eee;
+    --bkg-color: #121212;
+  }
+  body.light-theme {
+    --text-color: #222;
+    --bkg-color: #fff;
+  }
+
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: var(--bkg-color);
+}
+
+h1,
+p {
+  color: var(--text-color);
+}  */
+#loading-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(15px); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+@media only screen and (max-width: 600px){
+    
+    .contact-left, .contact-right{
+        flex-basis: 100%;
+        width: 100%;
+    }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <img src="rupee.gif" alt="Loading..." height="20%"/>
+        <p>Loading...</p>
+    </div>
+    
+    <div class="navbar">
+        <img src="logo.png" alt="Logo" style="height: 50px;" />
+        
+            <!-- <button class="btn-toggle">Toggle Dark-Mode</button> -->
+        <span class="more-option" id="avatar">&#x22EE;</span>
+        <div class="popover" id="popover">
+            <a href="index.html"><button>Logout<i class="fa-duotone fa-solid fa-right-from-bracket"></i></button></a>
+           <a><button>Help<i class="fa-regular fa-circle-question"></i></button></a>
+        </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="chat-container">
+            <div class="messages" id="messages"></div>
+            <div class="input-container">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <img src="plus.png" alt="Upload" id="imageUploadBtn">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <img src="send.png" alt="Send" onclick="sendMessage()">
+            </div>
+        </div>
+
+        
+        
+        <!-- Modal for displaying images -->
+        <div id="imageModal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
+        <!-- sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="review">
+                <p><strong>Thale</strong></p>
+                <p>Great platform! Love the community.</p>
+                <p class="stars">★★★★★</p>
+            </div>
+            <div class="review">
+                <p><strong>john doe</strong></p>
+                <p>Very helpful discussions.</p>
+                <p class="stars">★★★★☆</p>
+            </div>
+        </div>
+    </div>
+
+        <div  class="footer" id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="contact-left">
+                        <h1 class="sub-title">Feedback</h1>
+                        <p>Your feedback helps us assist you better!<br> Keep sharing your thoughts and keep learning and improving with INSTOCK!</p>
+                        <p><i class="fa-solid fa-paper-plane"></i>contact@example.com</p>
+                        <p><i class="fa-solid fa-square-phone"></i>0123456789</p>
+                        <div class="social-icons">
+                           <a href="#"> <i class="fa-brands fa-facebook"></i> </a>
+                           <a href="#"> <i class="fa-brands fa-twitter"></i> </a>
+                           <a href="#"> <i class="fa-brands fa-linkedin"></i> </a>
+                           <a href="#"> <i class="fa-brands fa-instagram"></i> </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-right">
+                        <form name="submit-to-google-sheet">
+                            <input type="text" name="Name" placeholder="Your Name" required>
+                            <input type="email" name="Email" placeholder="Your Emal" required>
+                            <textarea name="Message" rows="6" placeholder="Your message..."></textarea>
+                            <button class=" btn btn2" type="submit" >Submit</button>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+           </div>
+    
+    <!----------------------- SCRIPT ------------------------>
+
+    <script>
+        // Open modal
+        document.getElementById("imageUploadBtn").addEventListener("click", function () {
+            document.getElementById("imageInput").click();
+        });
+
+        function sendMessage() {
+            var input = document.getElementById("messageInput");
+            var messageText = input.value.trim();
+            var imageInput = document.getElementById("imageInput");
+            var imageFile = imageInput.files[0];
+            var currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            if (messageText === "" && !imageFile) return;
+
+            var messagesContainer = document.getElementById("messages");
+            var messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+            
+            var avatar = document.createElement("img");
+            avatar.src = "avatar.png"; // Default placeholder avatar
+            
+            var content = document.createElement("div");
+            content.classList.add("message-content");
+            
+            var senderElement = document.createElement("div");
+            senderElement.classList.add("sender");
+            senderElement.textContent = "Anonymous";
+            
+            var textElement = document.createElement("div");
+            textElement.classList.add("text");
+            textElement.textContent = messageText;
+            
+            var timeElement = document.createElement("div");
+            timeElement.classList.add("time");
+            timeElement.textContent = currentTime;
+            
+            // Append elements to the message container
+            content.appendChild(senderElement);
+            if (messageText !== "") content.appendChild(textElement);
+
+            // Display image if uploaded
+            if (imageFile) {
+    var imageElement = document.createElement("img");
+    imageElement.src = URL.createObjectURL(imageFile);
+    imageElement.style.maxWidth = "100%";  //image doesn't go out of the container
+    imageElement.style.borderRadius = "5px";
+    imageElement.style.cursor = "pointer";
+
+    // Open image in modal when clicked
+    imageElement.onclick = function () {
+        document.getElementById("modalImage").src = imageElement.src;
+        document.getElementById("imageModal").style.display = "flex";
+    };
+ 
+    content.appendChild(imageElement);
+}
+document.querySelector(".close").addEventListener("click", function() {
+        document.getElementById("imageModal").style.display = "none";
+    });
+
+    document.getElementById("imageModal").addEventListener("click", function(event) {
+        if (event.target === this) {  
+            this.style.display = "none";
+        }
+    });
+            content.appendChild(timeElement);
+            
+            messageElement.appendChild(avatar);
+            messageElement.appendChild(content);
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Clear input fields
+            input.value = "";
+            imageInput.value = "";
+        }
+</script>
+
+
+<script> 
+    document.addEventListener("DOMContentLoaded", function () {
+        loadFeedback(); // Load stored feedback on page load
+    });
+
+    document.querySelector("form[name='submit-to-google-sheet']").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+        
+        var name = this.Name.value;
+        var message = this.Message.value;
+        
+        if (name.trim() === "" || message.trim() === "") {
+            alert("Please fill in all fields before submitting.");
+            return;
+        }
+
+        var review = {
+            name: name,
+            message: message,
+            stars: "★★★★★" // Default 5 stars
+        };
+
+        saveFeedback(review);
+        addReviewToUI(review);
+        
+        this.reset(); // Reset form after submission
+        alert("Thank you for your feedback!");
+    });
+
+    function saveFeedback(review) {
+        let feedbackList = JSON.parse(localStorage.getItem("feedback")) || [];
+        feedbackList.push(review);
+        localStorage.setItem("feedback", JSON.stringify(feedbackList));
+    }
+
+    function loadFeedback() {
+        let feedbackList = JSON.parse(localStorage.getItem("feedback")) || [];
+        feedbackList.forEach(addReviewToUI);
+    }
+
+    function addReviewToUI(review) {
+        var reviewSection = document.getElementById("sidebar");
+        var reviewDiv = document.createElement("div");
+        reviewDiv.classList.add("review");
+
+        var namePara = document.createElement("p");
+        namePara.innerHTML = "<strong>" + review.name + "</strong>";
+
+        var messagePara = document.createElement("p");
+        messagePara.textContent = review.message;
+
+        var starsPara = document.createElement("p");
+        starsPara.classList.add("stars");
+        starsPara.textContent = review.stars;
+
+        reviewDiv.appendChild(namePara);
+        reviewDiv.appendChild(messagePara);
+        reviewDiv.appendChild(starsPara);
+
+        reviewSection.appendChild(reviewDiv);
+    }
+</script>
+
+
+
+
+        <!-- //FEEDBACK FORM -->
+        <script>
+    document.querySelector("form[name='submit-to-google-sheet']").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+        
+        var name = this.Name.value;
+        var message = this.Message.value;
+        
+        if (name.trim() === "" || message.trim() === "") {
+            return;
+        }
+        
+        var reviewSection = document.getElementById("sidebar");
+        var reviewDiv = document.createElement("div");
+        reviewDiv.classList.add("review");
+        
+        var namePara = document.createElement("p");
+        namePara.innerHTML = "<strong>" + name + "</strong>";
+        
+        var messagePara = document.createElement("p");
+        messagePara.textContent = message;
+        
+        var starsPara = document.createElement("p");
+        starsPara.classList.add("stars");
+        starsPara.textContent = "★★★★★"; // Default 5 stars
+        
+        reviewDiv.appendChild(namePara);
+        reviewDiv.appendChild(messagePara);
+        reviewDiv.appendChild(starsPara);
+        
+        reviewSection.appendChild(reviewDiv);
+        
+        this.reset(); // Reset form after submission
+        alert("Thank you for your feedback!");
+
+
+    });
+
+    
+</script>
+
+        <!-- // Dark mode toggle
+//         const btn = document.querySelector(".btn-toggle");
+// const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+// const currentTheme = localStorage.getItem("theme");
+// if (currentTheme == "dark") {
+//   document.body.classList.toggle("dark-theme");
+// } else if (currentTheme == "light") {
+//   document.body.classList.toggle("light-theme");
+// }
+
+// btn.addEventListener("click", function () {
+//   if (prefersDarkScheme.matches) {
+//     document.body.classList.toggle("light-theme");
+//     var theme = document.body.classList.contains("light-theme")
+//       ? "light"
+//       : "dark";
+//   } else {
+//     document.body.classList.toggle("dark-theme");
+//     var theme = document.body.classList.contains("dark-theme")
+//       ? "dark"
+//       : "light";
+//   }
+//   localStorage.setItem("theme", theme);
+// }); -->
+    </script> 
+    <!-- Laoding -->
+    <script>
+        window.onload = function () {
+            setTimeout(() => {
+                document.getElementById("loading-screen").style.display = "none";
+            }, 3000); // 3000ms = 3 seconds
+        };
+
+        // popover
+        document.getElementById("avatar").addEventListener("click", function(event) {
+            var popover = document.getElementById("popover");
+            popover.style.display = popover.style.display === "block" ? "none" : "block";
+        });
+
+        document.addEventListener("click", function(event) {
+            var popover = document.getElementById("popover");
+            var avatar = document.getElementById("avatar");
+            if (!avatar.contains(event.target) && !popover.contains(event.target)) {
+                popover.style.display = "none";
+            }
+        });
+
+        // Save feedbacks and messages to localStorage
+        function saveToLocalStorage(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        function loadFromLocalStorage(key) {
+            return JSON.parse(localStorage.getItem(key)) || [];
+        }
+
+        // Load messages from localStorage
+        window.onload = function () {
+            setTimeout(() => {
+                document.getElementById("loading-screen").style.display = "none";
+            }, 3000); // 3000ms = 3 seconds
+
+            // Load messages
+            const savedMessages = loadFromLocalStorage("messages");
+            const messagesContainer = document.getElementById("messages");
+            savedMessages.forEach(message => {
+                const messageElement = document.createElement("div");
+                messageElement.classList.add("message");
+
+                const avatar = document.createElement("img");
+                avatar.src = "avatar.png";
+
+                const content = document.createElement("div");
+                content.classList.add("message-content");
+
+                const senderElement = document.createElement("div");
+                senderElement.classList.add("sender");
+                senderElement.textContent = "Anonymous";
+
+                const textElement = document.createElement("div");
+                textElement.classList.add("text");
+                textElement.textContent = message.text;
+
+                const timeElement = document.createElement("div");
+                timeElement.classList.add("time");
+                timeElement.textContent = message.time;
+
+                content.appendChild(senderElement);
+                if (message.text) content.appendChild(textElement);
+
+                if (message.image) {
+                    const imageElement = document.createElement("img");
+                    imageElement.src = message.image;
+                    imageElement.style.maxWidth = "100%";
+                    imageElement.style.borderRadius = "5px";
+                    imageElement.style.cursor = "pointer";
+
+                    imageElement.onclick = function () {
+                        document.getElementById("modalImage").src = imageElement.src;
+                        document.getElementById("imageModal").style.display = "flex";
+                    };
+
+                    content.appendChild(imageElement);
+                }
+
+                content.appendChild(timeElement);
+                messageElement.appendChild(avatar);
+                messageElement.appendChild(content);
+                messagesContainer.appendChild(messageElement);
+            });
+
+        };
+
+        // Modify sendMessage to save messages
+        function sendMessage() {
+            var input = document.getElementById("messageInput");
+            var messageText = input.value.trim();
+            var imageInput = document.getElementById("imageInput");
+            var imageFile = imageInput.files[0];
+            var currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            if (messageText === "" && !imageFile) return;
+
+            var messagesContainer = document.getElementById("messages");
+            var messageElement = document.createElement("div");
+            messageElement.classList.add("message");
+
+            var avatar = document.createElement("img");
+            avatar.src = "avatar.png";
+
+            var content = document.createElement("div");
+            content.classList.add("message-content");
+
+            var senderElement = document.createElement("div");
+            senderElement.classList.add("sender");
+            senderElement.textContent = "Anonymous";
+
+            var textElement = document.createElement("div");
+            textElement.classList.add("text");
+            textElement.textContent = messageText;
+
+            var timeElement = document.createElement("div");
+            timeElement.classList.add("time");
+            timeElement.textContent = currentTime;
+
+            content.appendChild(senderElement);
+            if (messageText !== "") content.appendChild(textElement);
+
+            if (imageFile) {
+                var imageElement = document.createElement("img");
+                imageElement.src = URL.createObjectURL(imageFile);
+                imageElement.style.maxWidth = "100%";
+                imageElement.style.borderRadius = "5px";
+                imageElement.style.cursor = "pointer";
+
+                imageElement.onclick = function () {
+                    document.getElementById("modalImage").src = imageElement.src;
+                    document.getElementById("imageModal").style.display = "flex";
+                };
+
+                content.appendChild(imageElement);
+            }
+
+            content.appendChild(timeElement);
+            messageElement.appendChild(avatar);
+            messageElement.appendChild(content);
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            const savedMessages = loadFromLocalStorage("messages");
+            savedMessages.push({
+                text: messageText,
+                time: currentTime,
+                image: imageFile ? URL.createObjectURL(imageFile) : null
+            });
+            saveToLocalStorage("messages", savedMessages);
+
+            input.value = "";
+            imageInput.value = "";
+        }
+
+        
+    </script>
+    
+</body>
+</html>
