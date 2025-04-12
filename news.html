@@ -373,7 +373,7 @@
 <body>
     <nav class="navbar">
         <div class="logo">
-            <a href="#"><img src="./logo2[1].jpg" alt="logo"></a>
+            <a href="#"><img src="logo2.jpg" alt="logo"></a>
             <h1>Latest News</h1>
      </div>
                 
@@ -389,16 +389,13 @@
         <ul class="menu">
 
             <li onclick="toggleDropdown('productsDropdown')">
-                <i class="fa-solid fa-box"></i> Our Products 
+                <i class="fa-solid fa-box"></i> Navigate To
                 <i class="fa-solid fa-chevron-down" style="margin-left:auto;"></i>
             </li>
             <ul class="submenu" id="productsDropdown">
-                <li>Compare Stocks</li>
-                    <li>Intradays</li>
-                    <li>ETFs</li>
-                    <li>Gainers</li>
-                    <li>Stocks in News</li>
-                    
+                    <li onclick="location.href='community.html'"><i class="fa-solid fa-user-group"></i>Community</li>
+                    <li onclick="location.href='brokers.html'"><i class="fa-solid fa-handshake"></i>Brokers</li>
+                    <li style="cursor: not-allowed; background-color: #4a90e2; color: white;"><i class="fa-solid fa-newspaper"></i>News</li>
             </ul>
         
             <li><i class="fa-solid fa-cog"></i> Settings</li>
@@ -479,7 +476,7 @@
             <img src="c4.png" class="itemLeft item4" alt="sponsors" />
             <img src="c5.png" class="itemLeft item5" alt="sponsors" />
             <img src="c6.svg" class="itemLeft item6" alt="sponsors" />
-            <img src="c7.png" class="itemLeft item7" alt="sponsors" />
+            <img src="c9.svg" class="itemLeft item7" alt="sponsors" />
             <img src="c8.svg" class="itemLeft item8" alt="sponsors" />
           </div>
           
@@ -518,7 +515,7 @@ function addEditListener() {
             document.getElementById("checkname").addEventListener("click", function () {
                 const newName = document.getElementById("nameInput").value.trim();
                 localStorage.setItem("profileName", newName);
-                profileNameElement.innerHTML =` ${newName} <i class="fa-solid fa-edit" id="editname"></i>`;
+                profileNameElement.innerHTML = `${newName} <i class="fa-solid fa-edit" id="editname"></i>`;
                                 addEditListener();
             });
         });
@@ -549,7 +546,7 @@ window.addEventListener("DOMContentLoaded", function () {
     const storedName = localStorage.getItem("profileName");
     const profileNameElement = document.querySelector('.profilename');
     if (storedName) {
-        profileNameElement.innerHTML =` ${storedName} <i class="fa-solid fa-edit" id="editname"></i>`;
+        profileNameElement.innerHTML = `${storedName} <i class="fa-solid fa-edit" id="editname"></i>`;
     }
     // Attach the edit listener
     addEditListener();
