@@ -691,12 +691,20 @@ window.addEventListener("DOMContentLoaded", function () {
 
     const cardContainer = document.getElementById("stock-cards");
 
-    cards.forEach(card => {
-      const cardElement = document.createElement("div");
-      cardElement.className = "card";
-      cardElement.innerHTML =`<div class="icon" >${card.icon}</div><h3>${card.title}</h3>`;
-      cardContainer.appendChild(cardElement);
-    });
+          cards.forEach(card => {
+          const cardElement = document.createElement("div");
+          cardElement.className = "card";
+
+          
+          // Create an anchor tag to wrap the card and make it clickable
+          const linkElement = document.createElement("a");
+          linkElement.href = card.link;
+          linkElement.innerHTML = `<div class="icon">${card.icon}</div><h3>${card.title}</h3>`;
+
+          // Append the link (card) to the container
+          cardElement.appendChild(linkElement);
+          cardContainer.appendChild(cardElement);
+        });
   </script>
 
 
